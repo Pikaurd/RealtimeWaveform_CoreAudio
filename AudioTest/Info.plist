@@ -28,5 +28,9 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>NSMicrophoneUsageDescription</string>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>NSAppleEventsUsageDescription</string>
 </dict>
 </plist>

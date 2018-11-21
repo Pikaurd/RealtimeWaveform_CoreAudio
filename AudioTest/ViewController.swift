@@ -101,13 +101,13 @@ extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
                 let samplesPointer = bufferList.mBuffers.mData!.bindMemory(to: Float.self, capacity: samplesCount)
                 let samples = UnsafeMutableBufferPointer<Float>(start: samplesPointer, count: samplesCount)
                 
-                let rawValues = samples.flatMap { $0 }
+                let rawValues = samples.compactMap { $0 }
                 var rrr = 0 as Float
                 for vv in rawValues {
                     rrr = rrr + Float(vv)
                 }
                 let avg = Double(rrr) / Double(rawValues.count)
-                print("Double: \(avg)")
+                print(String(format: "Double: %.4f", avg))
                 
                 graphView.data = rawValues
                 DispatchQueue.main.async {
@@ -123,7 +123,7 @@ extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
                 let samplesPointer = bufferList.mBuffers.mData!.bindMemory(to: Int16.self, capacity: samplesCount)
                 let samples = UnsafeMutableBufferPointer<Int16>(start: samplesPointer, count: samplesCount)
                 
-                let rawValues = samples.flatMap { $0 }
+                let rawValues = samples.compactMap { $0 }
                 var rrr = 0 as Int64
                 for vv in rawValues {
                     rrr = rrr + Int64(vv)
