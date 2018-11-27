@@ -12,6 +12,13 @@
 		0106D69E1FDA2F8D00A9FE50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0106D69D1FDA2F8D00A9FE50 /* Assets.xcassets */; };
 		0106D6A11FDA2F8D00A9FE50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0106D69F1FDA2F8D00A9FE50 /* Main.storyboard */; };
 		0106D6DC1FDA551100A9FE50 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106D6DB1FDA551100A9FE50 /* GraphView.swift */; };
+		014FC51C21ABF5CB006F55F4 /* FFT_example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014FC51B21ABF5CB006F55F4 /* FFT_example.swift */; };
+		014FC51E21ABF69E006F55F4 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014FC51D21ABF69E006F55F4 /* TestViewController.swift */; };
+		014FC52021ABF992006F55F4 /* fft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014FC51F21ABF992006F55F4 /* fft.swift */; };
+		017CD36F21A803C700CE8F0D /* data.py in Resources */ = {isa = PBXBuildFile; fileRef = 017CD36E21A803C700CE8F0D /* data.py */; };
+		017CD37121A8046900CE8F0D /* test.py in Resources */ = {isa = PBXBuildFile; fileRef = 017CD37021A8046900CE8F0D /* test.py */; };
+		017CD37521A80C8900CE8F0D /* test_matplotlib.py in Resources */ = {isa = PBXBuildFile; fileRef = 017CD37321A80C8900CE8F0D /* test_matplotlib.py */; };
+		01C2C6FE21AD1C24000AD031 /* AudioFrequencySpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2C6FD21AD1C24000AD031 /* AudioFrequencySpectrum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,13 @@
 		0106D6A31FDA2F8D00A9FE50 /* AudioTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AudioTest.entitlements; sourceTree = "<group>"; };
 		0106D6D71FDA407A00A9FE50 /* AudioTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudioTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		0106D6DB1FDA551100A9FE50 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		014FC51B21ABF5CB006F55F4 /* FFT_example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFT_example.swift; sourceTree = "<group>"; };
+		014FC51D21ABF69E006F55F4 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		014FC51F21ABF992006F55F4 /* fft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fft.swift; sourceTree = "<group>"; };
+		017CD36E21A803C700CE8F0D /* data.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = data.py; sourceTree = "<group>"; };
+		017CD37021A8046900CE8F0D /* test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test.py; sourceTree = "<group>"; };
+		017CD37321A80C8900CE8F0D /* test_matplotlib.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = test_matplotlib.py; sourceTree = "<group>"; };
+		01C2C6FD21AD1C24000AD031 /* AudioFrequencySpectrum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFrequencySpectrum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +54,7 @@
 		0106D68D1FDA2F8D00A9FE50 = {
 			isa = PBXGroup;
 			children = (
+				017CD36B21A7EB5200CE8F0D /* pcm */,
 				0106D6981FDA2F8D00A9FE50 /* AudioTest */,
 				0106D6971FDA2F8D00A9FE50 /* Products */,
 			);
@@ -58,14 +73,28 @@
 			children = (
 				0106D6991FDA2F8D00A9FE50 /* AppDelegate.swift */,
 				0106D69B1FDA2F8D00A9FE50 /* ViewController.swift */,
+				014FC51D21ABF69E006F55F4 /* TestViewController.swift */,
 				0106D6DB1FDA551100A9FE50 /* GraphView.swift */,
 				0106D69D1FDA2F8D00A9FE50 /* Assets.xcassets */,
 				0106D69F1FDA2F8D00A9FE50 /* Main.storyboard */,
 				0106D6A21FDA2F8D00A9FE50 /* Info.plist */,
 				0106D6A31FDA2F8D00A9FE50 /* AudioTest.entitlements */,
 				0106D6D71FDA407A00A9FE50 /* AudioTest-Bridging-Header.h */,
+				014FC51B21ABF5CB006F55F4 /* FFT_example.swift */,
+				014FC51F21ABF992006F55F4 /* fft.swift */,
+				01C2C6FD21AD1C24000AD031 /* AudioFrequencySpectrum.swift */,
 			);
 			path = AudioTest;
+			sourceTree = "<group>";
+		};
+		017CD36B21A7EB5200CE8F0D /* pcm */ = {
+			isa = PBXGroup;
+			children = (
+				017CD37321A80C8900CE8F0D /* test_matplotlib.py */,
+				017CD36E21A803C700CE8F0D /* data.py */,
+				017CD37021A8046900CE8F0D /* test.py */,
+			);
+			path = pcm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,8 +162,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				017CD36F21A803C700CE8F0D /* data.py in Resources */,
+				017CD37121A8046900CE8F0D /* test.py in Resources */,
 				0106D69E1FDA2F8D00A9FE50 /* Assets.xcassets in Resources */,
 				0106D6A11FDA2F8D00A9FE50 /* Main.storyboard in Resources */,
+				017CD37521A80C8900CE8F0D /* test_matplotlib.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,8 +177,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				014FC52021ABF992006F55F4 /* fft.swift in Sources */,
+				014FC51E21ABF69E006F55F4 /* TestViewController.swift in Sources */,
+				01C2C6FE21AD1C24000AD031 /* AudioFrequencySpectrum.swift in Sources */,
 				0106D69C1FDA2F8D00A9FE50 /* ViewController.swift in Sources */,
 				0106D69A1FDA2F8D00A9FE50 /* AppDelegate.swift in Sources */,
+				014FC51C21ABF5CB006F55F4 /* FFT_example.swift in Sources */,
 				0106D6DC1FDA551100A9FE50 /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

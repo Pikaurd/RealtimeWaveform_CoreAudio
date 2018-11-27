@@ -22,6 +22,14 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        audioOutput.audioSettings = [
+            AVFormatIDKey: kAudioFormatLinearPCM,
+            AVLinearPCMBitDepthKey: 16,
+            AVLinearPCMIsFloatKey: false,
+            AVSampleRateKey: 44100,
+            AVNumberOfChannelsKey: 2,
+        ]
+        
         let devices = AVCaptureDevice.devices().filter { $0.hasMediaType(AVMediaType.audio) }
         if let captureDevice = devices.first {
             try! captureSession.addInput(AVCaptureDeviceInput(device: captureDevice))
@@ -31,9 +39,11 @@ class ViewController: NSViewController {
         }
     }
     
+    var lastTime: CFAbsoluteTime = 0
     override func viewDidAppear() {
         super.viewDidAppear()
         captureSession.startRunning()
+        
     }
     
     override func viewWillDisappear() {
@@ -47,11 +57,17 @@ class ViewController: NSViewController {
         }
     }
 
+    var data: [[Int16]] = []
+    
+    let afs = AudioFrequencySpectrum(sampleRate: 44100, sampleCountPerInvoke: 512)
 
 }
 
 extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+//        let now = CFAbsoluteTimeGetCurrent()
+//        print("got sample every \(now - lastTime)")
+//        lastTime = now
         
         let bufferListSizeNeeded = UnsafeMutablePointer<Int>.allocate(capacity: 1)
         
@@ -102,21 +118,24 @@ extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
                 let samples = UnsafeMutableBufferPointer<Float>(start: samplesPointer, count: samplesCount)
                 
                 let rawValues = samples.compactMap { $0 }
-                var rrr = 0 as Float
-                for vv in rawValues {
-                    rrr = rrr + Float(vv)
-                }
-                let avg = Double(rrr) / Double(rawValues.count)
-                print(String(format: "Double: %.4f", avg))
-                
-                graphView.data = rawValues
+//                var rrr = 0 as Float
+//                for vv in rawValues {
+//                    rrr = rrr + Float(vv)
+//                }
+//                let avg = Double(rrr) / Double(rawValues.count)
+//                print(String(format: "Double: %.4f", avg))
+//
+//                graphView.data = rawValues
+                graphView.data = afs.fft(xs: rawValues)
                 DispatchQueue.main.async {
                     self.graphView.setNeedsDisplay(self.graphView.bounds)
                 }
                 
+//                print("rawValues: \(rawValues.count)")
             }
         
         case .Integer:
+//            print("Integer route")
             for buffer in buffers {
                 
                 let samplesCount = Int(buffer.mDataByteSize) / MemoryLayout<Int16>.size
@@ -124,15 +143,26 @@ extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
                 let samples = UnsafeMutableBufferPointer<Int16>(start: samplesPointer, count: samplesCount)
                 
                 let rawValues = samples.compactMap { $0 }
-                var rrr = 0 as Int64
-                for vv in rawValues {
-                    rrr = rrr + Int64(vv)
-                }
-                let avg = Double(rrr) / Double(rawValues.count)
-                print("Integer: \(avg)")
+//                data.append(rawValues)
+//                if data.count == 10 {
+//                    print("")
+//                }
+//                var rrr = 0 as Int64
+//                for vv in rawValues {
+//                    rrr = rrr + Int64(vv)
+//                }
+//                let avg = Double(rrr) / Double(rawValues.count)
+//                print("Sample Size: \(samplesCount) \t Integer: \(avg)")
+//
+//                let rr: [Float] = rawValues.map({ abs(Float($0) / Float(Int16.max)) })
+//                graphView.data = rr
+//                DispatchQueue.main.async {
+//                    self.graphView.setNeedsDisplay(self.graphView.bounds)
+//                }
                 
-                let rr: [Float] = rawValues.map({ abs(Float($0) / Float(Int16.max)) })
-                graphView.data = rr
+//                let amplitudes = samples.compactMap(ViewController.convertToDouble)
+//                graphView.data = FFT.fft(amplitudes, sampleRate: 44100)
+                graphView.data = afs.fft(xs: rawValues)
                 DispatchQueue.main.async {
                     self.graphView.setNeedsDisplay(self.graphView.bounds)
                 }
@@ -154,7 +184,7 @@ extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
         assert(asbd.mFormatID == kAudioFormatLinearPCM)
 //        assert((asbd.mFormatFlags & kLinearPCMFormatFlagIsSignedInteger) != 0)
         
-        print(asbd.mFormatFlags)
+//        print(asbd.mFormatFlags)
         
         if (asbd.mFormatFlags & kLinearPCMFormatFlagIsSignedInteger) > 0 {
             return .Integer
@@ -172,6 +202,13 @@ extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
         case Float
         case Integer
         case Unknow
+    }
+    
+    static func convertToDouble(x: Int16) -> Double {
+        let r = Double(x) / Double(Int16.max)
+        if r > 1.0 { return 1 }
+        if r < -1.0 { return -1 }
+        return r
     }
 }
 
