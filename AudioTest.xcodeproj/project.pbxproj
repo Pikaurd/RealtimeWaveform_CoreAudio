@@ -19,7 +19,21 @@
 		017CD37121A8046900CE8F0D /* test.py in Resources */ = {isa = PBXBuildFile; fileRef = 017CD37021A8046900CE8F0D /* test.py */; };
 		017CD37521A80C8900CE8F0D /* test_matplotlib.py in Resources */ = {isa = PBXBuildFile; fileRef = 017CD37321A80C8900CE8F0D /* test_matplotlib.py */; };
 		01C2C6FE21AD1C24000AD031 /* AudioFrequencySpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2C6FD21AD1C24000AD031 /* AudioFrequencySpectrum.swift */; };
+		01C2C70621AD2709000AD031 /* AudioTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2C70521AD2709000AD031 /* AudioTestTests.swift */; };
+		01C2C70E21AD2BDE000AD031 /* MathematicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2C70D21AD2BDE000AD031 /* MathematicsTests.swift */; };
+		01C2C72D21AD43E1000AD031 /* DaymoFrequencyUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2C72C21AD43E1000AD031 /* DaymoFrequencyUtility.swift */; };
+		01C2C72F21AD48BF000AD031 /* DaymoFrequencyUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2C72C21AD43E1000AD031 /* DaymoFrequencyUtility.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		01C2C70821AD2709000AD031 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0106D68E1FDA2F8D00A9FE50 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0106D6951FDA2F8D00A9FE50;
+			remoteInfo = AudioTest;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0106D6961FDA2F8D00A9FE50 /* AudioTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,10 +52,22 @@
 		017CD37021A8046900CE8F0D /* test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test.py; sourceTree = "<group>"; };
 		017CD37321A80C8900CE8F0D /* test_matplotlib.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = test_matplotlib.py; sourceTree = "<group>"; };
 		01C2C6FD21AD1C24000AD031 /* AudioFrequencySpectrum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFrequencySpectrum.swift; sourceTree = "<group>"; };
+		01C2C70321AD2709000AD031 /* AudioTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		01C2C70521AD2709000AD031 /* AudioTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTestTests.swift; sourceTree = "<group>"; };
+		01C2C70721AD2709000AD031 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01C2C70D21AD2BDE000AD031 /* MathematicsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathematicsTests.swift; sourceTree = "<group>"; };
+		01C2C72C21AD43E1000AD031 /* DaymoFrequencyUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaymoFrequencyUtility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0106D6931FDA2F8D00A9FE50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		01C2C70021AD2709000AD031 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -56,6 +82,7 @@
 			children = (
 				017CD36B21A7EB5200CE8F0D /* pcm */,
 				0106D6981FDA2F8D00A9FE50 /* AudioTest */,
+				01C2C70421AD2709000AD031 /* AudioTestTests */,
 				0106D6971FDA2F8D00A9FE50 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				0106D6961FDA2F8D00A9FE50 /* AudioTest.app */,
+				01C2C70321AD2709000AD031 /* AudioTestTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,6 +111,7 @@
 				014FC51B21ABF5CB006F55F4 /* FFT_example.swift */,
 				014FC51F21ABF992006F55F4 /* fft.swift */,
 				01C2C6FD21AD1C24000AD031 /* AudioFrequencySpectrum.swift */,
+				01C2C72C21AD43E1000AD031 /* DaymoFrequencyUtility.swift */,
 			);
 			path = AudioTest;
 			sourceTree = "<group>";
@@ -95,6 +124,16 @@
 				017CD37021A8046900CE8F0D /* test.py */,
 			);
 			path = pcm;
+			sourceTree = "<group>";
+		};
+		01C2C70421AD2709000AD031 /* AudioTestTests */ = {
+			isa = PBXGroup;
+			children = (
+				01C2C70521AD2709000AD031 /* AudioTestTests.swift */,
+				01C2C70D21AD2BDE000AD031 /* MathematicsTests.swift */,
+				01C2C70721AD2709000AD031 /* Info.plist */,
+			);
+			path = AudioTestTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -117,13 +156,31 @@
 			productReference = 0106D6961FDA2F8D00A9FE50 /* AudioTest.app */;
 			productType = "com.apple.product-type.application";
 		};
+		01C2C70221AD2709000AD031 /* AudioTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01C2C70A21AD2709000AD031 /* Build configuration list for PBXNativeTarget "AudioTestTests" */;
+			buildPhases = (
+				01C2C6FF21AD2709000AD031 /* Sources */,
+				01C2C70021AD2709000AD031 /* Frameworks */,
+				01C2C70121AD2709000AD031 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				01C2C70921AD2709000AD031 /* PBXTargetDependency */,
+			);
+			name = AudioTestTests;
+			productName = AudioTestTests;
+			productReference = 01C2C70321AD2709000AD031 /* AudioTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		0106D68E1FDA2F8D00A9FE50 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Thel;
 				TargetAttributes = {
@@ -136,6 +193,11 @@
 								enabled = 1;
 							};
 						};
+					};
+					01C2C70221AD2709000AD031 = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 0106D6951FDA2F8D00A9FE50;
 					};
 				};
 			};
@@ -153,6 +215,7 @@
 			projectRoot = "";
 			targets = (
 				0106D6951FDA2F8D00A9FE50 /* AudioTest */,
+				01C2C70221AD2709000AD031 /* AudioTestTests */,
 			);
 		};
 /* End PBXProject section */
@@ -170,6 +233,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		01C2C70121AD2709000AD031 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -178,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				014FC52021ABF992006F55F4 /* fft.swift in Sources */,
+				01C2C72D21AD43E1000AD031 /* DaymoFrequencyUtility.swift in Sources */,
 				014FC51E21ABF69E006F55F4 /* TestViewController.swift in Sources */,
 				01C2C6FE21AD1C24000AD031 /* AudioFrequencySpectrum.swift in Sources */,
 				0106D69C1FDA2F8D00A9FE50 /* ViewController.swift in Sources */,
@@ -187,7 +258,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		01C2C6FF21AD2709000AD031 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01C2C72F21AD48BF000AD031 /* DaymoFrequencyUtility.swift in Sources */,
+				01C2C70E21AD2BDE000AD031 /* MathematicsTests.swift in Sources */,
+				01C2C70621AD2709000AD031 /* AudioTestTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		01C2C70921AD2709000AD031 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0106D6951FDA2F8D00A9FE50 /* AudioTest */;
+			targetProxy = 01C2C70821AD2709000AD031 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0106D69F1FDA2F8D00A9FE50 /* Main.storyboard */ = {
@@ -348,6 +437,43 @@
 			};
 			name = Release;
 		};
+		01C2C70B21AD2709000AD031 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = C2RR97X77J;
+				INFOPLIST_FILE = AudioTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = rela.AudioTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AudioTest.app/Contents/MacOS/AudioTest";
+			};
+			name = Debug;
+		};
+		01C2C70C21AD2709000AD031 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = C2RR97X77J;
+				INFOPLIST_FILE = AudioTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = rela.AudioTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AudioTest.app/Contents/MacOS/AudioTest";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -365,6 +491,15 @@
 			buildConfigurations = (
 				0106D6A71FDA2F8D00A9FE50 /* Debug */,
 				0106D6A81FDA2F8D00A9FE50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		01C2C70A21AD2709000AD031 /* Build configuration list for PBXNativeTarget "AudioTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01C2C70B21AD2709000AD031 /* Debug */,
+				01C2C70C21AD2709000AD031 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

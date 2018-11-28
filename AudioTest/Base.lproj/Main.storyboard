@@ -746,16 +746,58 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Tkp-oE-99g" customClass="GraphView" customModule="AudioTest" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                             </customView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QIZ-r1-hMw">
+                                <rect key="frame" x="14" y="237" width="37" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="mxJ-dl-dvP">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eO4-HL-wHb">
+                                <rect key="frame" x="200" y="226" width="81" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="69" id="BhU-5a-2ic"/>
+                                    <constraint firstAttribute="height" constant="21" id="K2h-qL-Lx0"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PH3-sj-amz">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="handleButtonAction:" target="XfG-lQ-9wD" id="1ah-4D-duz"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jgo-Zs-XNa">
+                                <rect key="frame" x="334" y="237" width="132" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="iD2-5Q-xeo"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Label" id="lbp-bw-0LS">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="QIZ-r1-hMw" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="16" id="6hd-O7-THn"/>
+                            <constraint firstItem="eO4-HL-wHb" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="BZR-N7-PYC"/>
+                            <constraint firstAttribute="trailing" secondItem="Jgo-Zs-XNa" secondAttribute="trailing" constant="16" id="OPr-6r-oKa"/>
+                            <constraint firstItem="eO4-HL-wHb" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="16" id="ekh-r4-R8S"/>
                             <constraint firstItem="Tkp-oE-99g" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="erO-TE-AMr"/>
+                            <constraint firstItem="Jgo-Zs-XNa" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="16" id="lAK-tK-UZ7"/>
                             <constraint firstItem="Tkp-oE-99g" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="rH2-t0-x3M"/>
                             <constraint firstAttribute="bottom" secondItem="Tkp-oE-99g" secondAttribute="bottom" id="rin-W4-Ncp"/>
+                            <constraint firstItem="QIZ-r1-hMw" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="yAd-9o-L70"/>
                             <constraint firstAttribute="trailing" secondItem="Tkp-oE-99g" secondAttribute="trailing" id="yyN-1K-F5t"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="centerButton" destination="eO4-HL-wHb" id="8Kc-BP-zSd"/>
                         <outlet property="graphView" destination="Tkp-oE-99g" id="sf7-Pe-0Ka"/>
+                        <outlet property="topLeftLabel" destination="QIZ-r1-hMw" id="L8k-On-BbS"/>
+                        <outlet property="topRightLabel" destination="Jgo-Zs-XNa" id="8u5-5F-K0f"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

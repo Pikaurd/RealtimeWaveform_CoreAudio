@@ -17,6 +17,9 @@ class ViewController: NSViewController {
     let audioOutput = AVCaptureAudioDataOutput()
 
     @IBOutlet weak var graphView: GraphView!
+    @IBOutlet weak var topLeftLabel: NSTextField!
+    @IBOutlet weak var centerButton: NSButton!
+    @IBOutlet weak var topRightLabel: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +40,7 @@ class ViewController: NSViewController {
             captureSession.addOutput(audioOutput)
             audioOutput.setSampleBufferDelegate(self, queue: DispatchQueue.global())
         }
+        
     }
     
     var lastTime: CFAbsoluteTime = 0
@@ -57,18 +61,22 @@ class ViewController: NSViewController {
         }
     }
 
+    var isRecording = false
+    @IBAction func handleButtonAction(_ sender: NSButton) {
+        print(sender)
+        isRecording = !isRecording
+    }
+    
     var data: [[Int16]] = []
     
     let afs = AudioFrequencySpectrum(sampleRate: 44100, sampleCountPerInvoke: 512)
+    let dfu = DaymoFrequencyUtility(sampleCount: 256)
 
 }
 
 extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-//        let now = CFAbsoluteTimeGetCurrent()
-//        print("got sample every \(now - lastTime)")
-//        lastTime = now
-        
+
         let bufferListSizeNeeded = UnsafeMutablePointer<Int>.allocate(capacity: 1)
         
         var bufferList = AudioBufferList()
@@ -142,6 +150,10 @@ extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
                 let samplesPointer = bufferList.mBuffers.mData!.bindMemory(to: Int16.self, capacity: samplesCount)
                 let samples = UnsafeMutableBufferPointer<Int16>(start: samplesPointer, count: samplesCount)
                 
+                guard samples.count == 512 else {
+                    print("SKIP sample count: \(samples.count)")
+                    return ()
+                }
                 let rawValues = samples.compactMap { $0 }
 //                data.append(rawValues)
 //                if data.count == 10 {
@@ -162,9 +174,33 @@ extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
                 
 //                let amplitudes = samples.compactMap(ViewController.convertToDouble)
 //                graphView.data = FFT.fft(amplitudes, sampleRate: 44100)
-                graphView.data = afs.fft(xs: rawValues)
+//                graphView.data = afs.fft(xs: rawValues)
+                
+                let c = 88
+                
+                let identityArray = Array<Float>(repeating: 1, count: dfu.N)
+                let identity = UnsafeMutablePointer<Float>(mutating: identityArray)
+                
+                let frequencyData = afs.fft(xs: rawValues).map({$0 * 5.0})
+                graphView.data = frequencyData
+                let xp = UnsafeMutablePointer<Float>(mutating: frequencyData)
+                let soundScore = DaymoFrequencyUtility.soundScore(xp: xp, scales: identity, count: c)
+                if self.isRecording {
+                    self.dfu.update(xs: frequencyData)
+                    print("updating…\t averageBase: \(dfu.averageBase)")
+                }
+                
+                let scales = dfu.getScales()
+                let ss = DaymoFrequencyUtility.soundScore(xp: xp, scales: scales, count: c)
+                
+//                if ss != soundScore {
+//                    print("difference: \(soundScore - ss)")
+//                }
                 DispatchQueue.main.async {
                     self.graphView.setNeedsDisplay(self.graphView.bounds)
+                    self.topLeftLabel.stringValue = String(format: "O: %.5f", soundScore)
+                    self.topRightLabel.stringValue = String(format: "O: %.5f", ss)
+                    self.centerButton.title = String(format: "%.3f", (soundScore - ss) * 1000)
                 }
                 
             }

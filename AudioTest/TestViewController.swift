@@ -6,6 +6,7 @@
 //  Copyright © 2018 Thel. All rights reserved.
 //
 
+import Accelerate
 import Cocoa
 
 class TestViewController: NSViewController {
@@ -13,30 +14,19 @@ class TestViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+     
+        matrixMultiplyTest()
+    }
+    
+    func matrixMultiplyTest() -> () {
+        var a: [Float] = [1,2,3,4,5]
+        var b: [Float] = [0,0,1,0,0]
+        let c = UnsafeMutablePointer<Float>.allocate(capacity: 1)
         
-        print(Int16.max)
+        vDSP_mmul(&a, vDSP_Stride(1), &b, vDSP_Stride(1), c, vDSP_Stride(1), 1, 1, 5)
         
-        let fft = FFT_example()
-        
-        let n = 512 // Should be power of two for the FFT
-        let frequency1 = 4.0
-        let phase1 = 0.0
-        let amplitude1 = 8.0
-        let seconds = 2.0
-        let fps = Double(n)/seconds
-        
-        // x1 =np.sin(15 * np.pi * t1)
-        let sineWave = (0..<n).map {
-//            amplitude1 *
-                sin(2.0 * .pi * Double($0) / fps * frequency1 + phase1)
-        }
-        
-        fft.calculate(sineWave, fps: fps)
-//        let sineWave2 = (0..<n).map {
-//            sin(2.0 * .pi * Double($0) / Double(fps * frequency1))
-//        }
-        let xs = FFT.fft(sineWave, sampleRate: Int(fps))
-        print(xs)
+        print(c.pointee)
+        assert(c.pointee == 3)
     }
     
 }

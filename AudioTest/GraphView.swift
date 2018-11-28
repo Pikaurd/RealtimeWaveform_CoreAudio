@@ -25,7 +25,7 @@ class GraphView: NSView {
 
         for (i, v) in data.enumerated() {
             let width = rect.width / CGFloat(data.count)
-            let height = rect.height * CGFloat(fabs(v) * 2.0)
+            let height = rect.height * CGFloat(fabs(v))
             let x = CGFloat(i) * width
             let y: CGFloat = 0//v > 0 ? rect.height / 2 : rect.height / 2 - height
             path.addRect(CGRect(x: x, y: y, width: width, height: height))

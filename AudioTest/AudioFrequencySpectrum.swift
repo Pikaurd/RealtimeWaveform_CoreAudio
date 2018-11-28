@@ -35,7 +35,19 @@ class AudioFrequencySpectrum {
     }
     
     func fft(xs: [Float]) -> [Float] {
-        assert(xs.count == N)
+        let input: [Float]
+        if xs.count > N {
+            print("fft: expected \(N) but GOT \(xs.count)")
+            input = Array(xs[0..<N])
+        }
+        else if xs.count < N {
+            fatalError("sample count \(xs.count) less than \(N)")
+        }
+        else {
+            input = xs
+        }
+        assert(input.count == N)
+        
         // We need complex buffers in two different formats!
         var tempSplitComplexReal : [Float] = [Float](repeating: 0.0, count: N/2)
         var tempSplitComplexImag : [Float] = [Float](repeating: 0.0, count: N/2)
@@ -43,10 +55,10 @@ class AudioFrequencySpectrum {
         
         var valuesAsComplex : UnsafeMutablePointer<DSPComplex>? = nil
         
-        valuesAsComplex = xs.withUnsafeBytes { (x: UnsafeRawBufferPointer) -> UnsafeMutablePointer<DSPComplex>? in
+        valuesAsComplex = input.withUnsafeBytes { (x: UnsafeRawBufferPointer) -> UnsafeMutablePointer<DSPComplex>? in
             guard let rawPointer = x.baseAddress
                 else { return nil }
-            let unsafePointer: UnsafePointer<DSPComplex> = rawPointer.bindMemory(to: DSPComplex.self, capacity: xs.count)
+            let unsafePointer: UnsafePointer<DSPComplex> = rawPointer.bindMemory(to: DSPComplex.self, capacity: N)
             return UnsafeMutablePointer(mutating: unsafePointer)
         }
         // Scramble-pack the real data into complex buffer in just the way that's
