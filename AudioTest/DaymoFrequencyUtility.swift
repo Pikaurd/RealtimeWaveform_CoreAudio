@@ -39,20 +39,21 @@ class DaymoFrequencyUtility {
     }
     
     func getScales() -> UnsafeMutablePointer<Float> {
-        let identity = [Float](repeating: 1, count: N)
-        let identityPointer = UnsafeMutablePointer<Float>(mutating: identity)
+        let zeros = [Float](repeating: 0, count: N)
+        let zerosPointer = UnsafeMutablePointer<Float>(mutating: zeros)
         if averageBase == 0 {
-            return identityPointer
+            return zerosPointer
         }
         
-        let result = UnsafeMutablePointer<Float>.allocate(capacity: N)
+//        let result = UnsafeMutablePointer<Float>.allocate(capacity: N)
         let rawScales = DaymoFrequencyUtility.copy(origin: scalePointer, capacity: N)
         cblas_sscal(Int32(N), 1.0 / Float(averageBase), rawScales, 1)
-        vDSP_vsub(rawScales, vDSP_Stride(1),
-                  identityPointer, vDSP_Stride(1),
-                  result, vDSP_Stride(1),
-                  vDSP_Length(N))
-        return result
+        return rawScales
+//        vDSP_vsub(rawScales, vDSP_Stride(1),
+//                  identityPointer, vDSP_Stride(1),
+//                  result, vDSP_Stride(1),
+//                  vDSP_Length(N))
+//        return result
     }
     
     func reset() -> () {
@@ -91,14 +92,32 @@ class DaymoFrequencyUtility {
     
     static func soundScore(xp: UnsafeMutablePointer<Float>, scales: UnsafeMutablePointer<Float>, count: Int) -> Float {
         let copied = DaymoFrequencyUtility.copy(origin: xp, capacity: count)
-        let r = UnsafeMutablePointer<Float>.allocate(capacity: 1)
-        vDSP_mmul(
-            copied, vDSP_Stride(1),
+        let r = UnsafeMutablePointer<Float>.allocate(capacity: count)
+        // 通过scale来降低权重
+//        vDSP_mmul(
+//            copied, vDSP_Stride(1),
+//            scales, vDSP_Stride(1),
+//            r, vDSP_Stride(1),
+//            vDSP_Length(1), vDSP_Length(1), vDSP_Length(count)
+//        )
+        
+        // 直接消去相关区域能量
+        vDSP_vsub(
             scales, vDSP_Stride(1),
+            copied, vDSP_Stride(1),
             r, vDSP_Stride(1),
-            vDSP_Length(1), vDSP_Length(1), vDSP_Length(count)
+            vDSP_Length(count)
         )
-        let result = r.pointee / Float(count)
+        
+        for i in 0..<count {
+            let p = r.advanced(by: i)
+            let x = p.pointee
+            if x < 0 {
+                p.pointee = 0
+            }
+        }
+        
+        let result = cblas_sasum(Int32(count), r, 1) / Float(count)
         return result
     }
     

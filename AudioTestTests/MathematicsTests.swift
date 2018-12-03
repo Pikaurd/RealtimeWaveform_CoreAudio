@@ -23,31 +23,31 @@ class MathematicsTests: XCTestCase {
         dfu = nil
     }
     
-    func testUpdate() {
-        let dfu = DaymoFrequencyUtility(sampleCount: 3)
-        XCTAssertEqual(
-            [0, 0, 0],
-            MathematicsTests.convertPointerToArray(p: dfu.scalePointer, count: dfu.N)
-            )
-        
-        dfu.update(xs: [0.1, 0.2, 0.3])
-        XCTAssertEqual(
-            [0.1, 0.2, 0.3],
-            MathematicsTests.convertPointerToArray(p: dfu.scalePointer, count: dfu.N)
-        )
-        
-        dfu.update(xs: [0.8, 0.8, 0.8])
-        XCTAssertEqual(
-            [0.9, 1.0, 1.1],
-            MathematicsTests.convertPointerToArray(p: dfu.scalePointer, count: dfu.N)
-        )
-        
-        dfu.update(xs: [0.8, 0.8, 0.8])
-        XCTAssertEqual(
-            [1.7, 1.8, 1.9],
-            MathematicsTests.convertPointerToArray(p: dfu.scalePointer, count: dfu.N)
-        )
-    }
+//    func testUpdate() {
+//        let dfu = DaymoFrequencyUtility(sampleCount: 3)
+//        XCTAssertEqual(
+//            [0, 0, 0],
+//            MathematicsTests.convertPointerToArray(p: dfu.scalePointer, count: dfu.N)
+//            )
+//
+//        dfu.update(xs: [0.1, 0.2, 0.3])
+//        XCTAssertEqual(
+//            [0.1, 0.2, 0.3],
+//            MathematicsTests.convertPointerToArray(p: dfu.scalePointer, count: dfu.N)
+//        )
+//
+//        dfu.update(xs: [0.8, 0.8, 0.8])
+//        XCTAssertEqual(
+//            [0.9, 1.0, 1.1],
+//            MathematicsTests.convertPointerToArray(p: dfu.scalePointer, count: dfu.N)
+//        )
+//
+//        dfu.update(xs: [0.8, 0.8, 0.8])
+//        XCTAssertEqual(
+//            [1.7, 1.8, 1.9],
+//            MathematicsTests.convertPointerToArray(p: dfu.scalePointer, count: dfu.N)
+//        )
+//    }
     
     func testRest() {
         let actual = UnsafeMutablePointer<Float>.allocate(capacity: 1)
@@ -78,21 +78,20 @@ class MathematicsTests: XCTestCase {
         
         let d1 = MathematicsTests.convertPointerToArray(p: dfu.getScales(), count: dfu.N)
         XCTAssertEqual(
-            Array<Float>(repeating: 1, count: 5),
+            Array<Float>(repeating: 0, count: 5),
             d1
         )
         
         dfu.update(xs: [0.1, 0.4, 0.3, 0.1, 0])
         let d2 = MathematicsTests.convertPointerToArray(p: dfu.getScales(), count: dfu.N)
         XCTAssertEqual(
-            [0.9, 0.6, 0.7, 0.9, 1.0],
+            [0.1, 0.4, 0.3, 0.1, 0.0],
             d2
         )
-        print(d1)
-        print(d2)
-        
+
         dfu.update(xs: [0.1, 0.5, 0.4, 0.1, 0])
-        let expected:[Float] = [0.9, 0.55, 0.65, 0.9, 1]
+        // sum [0.2, 0.9, 0.7, 0.2, 0] -> avg [0.1, 0.45, 0.35, 0.1, 0] 
+        let expected:[Float] = [0.1, 0.45, 0.35, 0.1, 0]
         let actual = MathematicsTests.convertPointerToArray(p: dfu.getScales(), count: dfu.N)
         XCTAssertEqual(expected, actual)
     }
@@ -120,12 +119,12 @@ class MathematicsTests: XCTestCase {
         XCTAssertEqual(expected2, actual2)
         
         dfu.reset()
-        dfu.update(xs: [0.9, 0.4, 0.3, 0.1, 0])
-        dfu.update(xs: [0.9, 0.5, 0.4, 0.1, 0])
-        // [1.8, 0.9, 0.7, 0.2, 0] -> [0.9, 0.45, 0.35, 0.1, 0] => [0.1, 0.55, 0.65, 0.9, 1]
-        // 0.9 * 0.1 + 0.5 * 0.55 + 0.0 * 0.65 + 0.1 * 0.9 + 0 * 1
-        let input: [Float] = [0.9, 0.5, 0.0, 0.1, 0.0]
-        let expected3: Float = 0.091000006
+        dfu.update(xs: [0.05, 0.01, 0.3, 0.1, 0])
+        dfu.update(xs: [0.1, 0.15, 0.35, 0.15, 0])
+        // sum [0.15, 0.16, 0.65, 0.25, 0] -> avg [0.075, 0.08, 0.325, 0.125, 0]
+        let input: [Float] = [0.1, 0.3, 0.3, 0.1, 1.0]
+        // expected [0.025, 0.22, -0.025, -0.025, 1]
+        let expected3: Float = 0.249
         let actual3 = dfu.getSoundScore(xp: UnsafeMutablePointer<Float>(mutating: input))
         XCTAssertEqual(expected3, actual3)
     }

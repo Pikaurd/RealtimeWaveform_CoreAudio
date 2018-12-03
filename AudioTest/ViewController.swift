@@ -40,7 +40,6 @@ class ViewController: NSViewController {
             captureSession.addOutput(audioOutput)
             audioOutput.setSampleBufferDelegate(self, queue: DispatchQueue.global())
         }
-        
     }
     
     var lastTime: CFAbsoluteTime = 0
@@ -65,6 +64,9 @@ class ViewController: NSViewController {
     @IBAction func handleButtonAction(_ sender: NSButton) {
         print(sender)
         isRecording = !isRecording
+        if isRecording {
+            dfu.reset()
+        }
     }
     
     var data: [[Int16]] = []
@@ -178,7 +180,7 @@ extension ViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
                 
                 let c = 88
                 
-                let identityArray = Array<Float>(repeating: 1, count: dfu.N)
+                let identityArray = Array<Float>(repeating: 0, count: dfu.N)
                 let identity = UnsafeMutablePointer<Float>(mutating: identityArray)
                 
                 let frequencyData = afs.fft(xs: rawValues).map({$0 * 5.0})
