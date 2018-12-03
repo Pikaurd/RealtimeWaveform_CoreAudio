@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 # 本文目标
-本文的目标是在无数字信号处理基础的情况背景下说明PCM转频谱的原理。
+本文的目标是在无数字信号处理基础的情况背景下说明PCM转频谱的原理。
 
 
 # 如何从PCM数据中取出音频频谱
@@ -21,6 +21,7 @@
 
 ## WAV文件与波形图
 ![wave form](https://res.cloudinary.com/demo/video/upload/h_200,w_500,fl_waveform/bumblebee.png)
+
 [WAV](https://zh.wikipedia.org/wiki/WAV)文件格式可以记录多种数据类型，其中头部分记录的是音频数据类型，声道数量，采样率，采样深度之类的信息。
 其中数据类型为*1*时表示此WAV文件使用的是PCM编码的数据，**也就是从理论上来说WAV里面的数据不一定就是PCM**。
 
@@ -39,8 +40,8 @@ PCM格式的数据，表示的就是波形图。
 
 
 ## 什么是频谱(frequency spectrum)
-![Frequency specturm chart](https://i.stack.imgur.com/WHGyR.png)
-声音是通过震动产生的，而震动是有不同频率的。比较低沉的声音震动频率就偏低，而尖锐的声音振动频率就偏高。
+![Frequency specturm chart](https://i.stack.imgur.com/WHGyR.png)
+声音是通过震动产生的，而震动是有不同频率的。比较低沉的声音震动频率就偏低，而尖锐的声音振动频率就偏高。
 
 不同于波形图随着时间的变长绘制的内容也越来越长，频谱图长度始终是一定的，但是会上下波动。
 
